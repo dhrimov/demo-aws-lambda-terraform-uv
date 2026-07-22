@@ -46,6 +46,11 @@ What it does:
 - Keeps `apply` interactive on purpose. Terraform shows the plan and waits for you to type `yes` before it changes anything.
 - Cleans up the throwaway artifacts (`build/` and `requirements.txt`) when it exits. It leaves `terraform/lambda.zip` in place, because Terraform reads it on every run.
 
+> [!NOTE]
+> Be aware that AWS caps the Lambda deployment package at 250 MB unzipped, layers included. This demo is nowhere near the limit, but heavy dependencies like pandas or pyarrow will get you there faster than you might expect. The script keeps things simple and does not deal with the limit.
+>
+> A common way around it is to zip the requirements into their own archive first, and ship that archive inside the lambda package instead of the flat dependency files. Lambda only unzips the outer package, so the dependencies keep counting at their compressed size. At runtime, on the first cold start, the handler unzips the inner archive into `/tmp` and adds it to `sys.path` before any dependency import. The price is a slower cold start and a bit of bootstrap code, so reach for this only once you are actually close to the limit. Be mindful of `/tmp` as well - it defaults to 512 MB, so large dependencies may need more ephemeral storage configured on the function.
+
 Drawbacks to be aware of:
 
 - Both `plan` and `apply` rebuild the package from scratch. There is no caching and no reuse between runs. So running `plan` and then `apply` builds the zip twice. The archive `apply` ships is not guaranteed to be byte-for-byte identical to the one `plan` showed you, because the zip embeds file timestamps. The real safety gate is the interactive `yes` inside `apply`, not the earlier `plan`.
