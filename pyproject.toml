@@ -1,5 +1,9 @@
 [project]
-name = "demo-aws-lambda-terraform-uv"
+# The distribution name deliberately matches the entrypoint package directory
+# (app/). package-python-function derives the package name for its nested-zip
+# loader from the distribution name, so if the two ever diverge, the >250 MiB
+# fallback ships a loader the handler never imports.
+name = "app"
 version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
@@ -10,3 +14,12 @@ dependencies = [
 [dependency-groups]
 dev = [
 ]
+
+[build-system]
+requires = ["uv_build>=0.8,<0.9"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+# module-name is derived from the project name. Only the flat layout needs
+# spelling out, since uv defaults to src/.
+module-root = ""

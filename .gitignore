@@ -2,10 +2,7 @@
 .terraform/
 build/
 
-requirements.txt
-
-lambda.zip
-terraform/lambda.zip
+terraform/*.zip
 terraform/.terraform.lock.hcl
 terraform/.terraform
 terraform/**.tfstate
