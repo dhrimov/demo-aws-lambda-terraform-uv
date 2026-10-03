@@ -23,9 +23,9 @@ pyproject.toml, uv.lock    dependencies
 
 ## Packaging in CI
 
-[.github/workflows/package.yml](./.github/workflows/package.yml) packages the Lambda with [dhrimov/package-python-lambda-gha](https://github.com/dhrimov/package-python-lambda-gha) on every pull request and every push to `main`. It also uploads the zip as a workflow artifact, so you can download it from the run page. To get a zip without pushing anything, run the workflow by hand from the Actions tab.
+[.github/workflows/package.yml](./.github/workflows/package.yml) packages the Lambda with [dhrimov/package-python-lambda-gha](https://github.com/dhrimov/package-python-lambda-gha) on every pull request and every push to `main`. You can also run it by hand from the Actions tab.
 
-The workflow only packages. It does not deploy.
+The workflow only packages. It does not deploy, and it does not upload the zip as an artifact.
 
 ## Prerequisites
 
@@ -37,19 +37,12 @@ The workflow only packages. It does not deploy.
 
 ## Deploy
 
-Get `terraform/app.zip` in one of two ways:
-
-- Download the artifact from a workflow run, and put `app.zip` into `terraform/`.
-- Package it locally with the action's `build.sh`:
+Package the Lambda locally with the action's `build.sh`, then run Terraform:
 
 ```bash
 git clone https://github.com/dhrimov/package-python-lambda-gha ../package-python-lambda-gha
 ../package-python-lambda-gha/build.sh --input . --output terraform --python 3.13 --platform aarch64-manylinux2014
-```
 
-Then run Terraform:
-
-```bash
 cd terraform
 terraform init
 terraform plan

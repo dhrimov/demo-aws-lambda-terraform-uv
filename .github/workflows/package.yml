@@ -21,4 +21,3 @@ jobs:
           output-path: terraform
           python-version: "3.13"
           platform: aarch64-manylinux2014
-          upload-artifact: "true"
