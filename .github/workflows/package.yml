@@ -1,0 +1,23 @@
+name: Package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - id: package
+        uses: dhrimov/package-python-lambda-gha@v1
+        with:
+          input-path: .
+          output-path: terraform
+          python-version: "3.13"
+          platform: aarch64-manylinux2014
