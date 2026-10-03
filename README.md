@@ -61,6 +61,8 @@ If you would rather run every packaging step by hand and see what each one does,
 
 The zip is named after the project's distribution name, so this repo produces `terraform/app.zip`.
 
+For how the packaging works - reproducible builds, the 250 MB size limit, and why the distribution name matters - see [Packaging Python Lambdas with uv and package-python-function](https://dhrimov.dev/blog/python-lambda-packaging-uv-package-python-function). The script there is the one the action grew out of.
+
 ### Edges to be aware of
 
 - Be mindful that Terraform reads the zip on every plan and apply, so package before you plan. A stale `terraform/app.zip` will plan and apply without complaint.
