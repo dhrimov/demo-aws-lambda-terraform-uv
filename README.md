@@ -6,7 +6,7 @@ I wrote a full walkthrough of this project on my blog: [Deploy a Python Lambda o
 
 Since then, I reworked the packaging script - reproducible builds, and automatic handling of the 250 MB Lambda size limit. That's covered in a follow-up post: [Packaging Python Lambdas with uv and package-python-function](https://dhrimov.dev/blog/python-lambda-packaging-uv-package-python-function).
 
-The script is now a GitHub Action, [Package Python Lambda](https://github.com/marketplace/actions/package-python-lambda), and this repo uses it instead of keeping its own copy. That's covered in the third post: [TODO: post title](https://dhrimov.dev/blog/TODO).
+The script is now a GitHub Action, [Package Python Lambda](https://github.com/marketplace/actions/package-python-lambda), and this repo uses it instead of keeping its own copy. That's covered in the third post: [A GitHub Action to Package Python AWS Lambdas with uv](https://dhrimov.dev/blog/github-action-package-python-aws-lambda-uv).
 
 ## What it does
 
